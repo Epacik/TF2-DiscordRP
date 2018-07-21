@@ -4,6 +4,8 @@ const dis = require('./scripts/discord.js');
 const tasks = require('./scripts/tasks.js');
 const ps = require('ps-node');
 
+let tf2Folder = '';
+
 let count = {
   dis: 0,
   tf2: 0,
@@ -69,7 +71,7 @@ let int2 = setInterval(() => {
  }, 500);
 
  function getTf2Folder() {
-   let tf2Folder = '';
+
    for (i = 0; i < tf2Exec.length; i++) {
      if (tf2Exec[i].includes('Team Fortress 2')) {
        let index = tf2Exec[i].lastIndexOf('\\');
@@ -77,4 +79,10 @@ let int2 = setInterval(() => {
      }
    }
    console.log('TF2 folder: ' + tf2Folder);
+   readConsoleLog();
  }
+
+function readConsoleLog() {
+  let path = tf2Folder + 'tf/console.log';
+  console.log(fs.readFileSync(path, 'utf-8'));
+}
