@@ -1,5 +1,18 @@
 {
   "dependencies": {
+    "is-promise": "^2.1.0",
+    "process-list": "^1.2.3",
+    "ps-node": "^0.1.6",
     "task-manager": "^1.7.0"
-  }
+  },
+  "name": "tf2-discord-rp",
+  "version": "1.0.0",
+  "main": "main.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Damian Kuśmierz",
+  "license": "MIT",
+  "description": ""
 }
