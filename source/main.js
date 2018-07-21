@@ -3,14 +3,24 @@ const pl = require("process-list");
 const dis = require('./scripts/discord.js');
 const tasks = require('./scripts/tasks.js');
 const ps = require('ps-node');
+const rp = require("easy-rich-presence");
+
+const uID = '429697664658178059';
 
 let tf2Folder = '';
+
+let mainLoop;
+
+let updateRate = 500;
 
 let count = {
   dis: 0,
   tf2: 0,
 }
 
+/**
+ *
+ */
 let tf2Exec = [];
 
 const isOn = {
@@ -54,21 +64,28 @@ function detectTF2() {
 );
 }
 
-detectDiscord();
-detectTF2();
+let int = {
+  dis: undefined,
+  tf2: undefined,
+}
 
-
-let int = setInterval(() => {console.log(count.dis + ' Discord is on: ' + isOn.discord); count.dis += 1; if (isOn.discord) clearInterval(int)}, 500);
-
-let int2 = setInterval(() => {
-  console.log(count.tf2 + ' TF2 is on: ' + isOn.tf2);
-  count.tf2 += 1;
-  if (isOn.tf2) {
-     console.log(JSON.stringify(tf2Exec, null, '\t'));
-     clearInterval(int2);
-     getTf2Folder();
-   }
- }, 500);
+function detect() {
+  isOn.tf2 = false;
+  isOn.discord = false;
+  tf2Exec = [];
+  detectDiscord();
+  detectTF2();
+  int.dis = setInterval(() => {console.log(count.dis + ' Discord is on: ' + isOn.discord); count.dis += 1; if (isOn.discord) clearInterval(int.dis)}, 500);
+  int.tf2 = setInterval(() => {
+    console.log(count.tf2 + ' TF2 is on: ' + isOn.tf2);
+    count.tf2 += 1;
+    if (isOn.tf2) {
+       console.log(JSON.stringify(tf2Exec, null, '\t'));
+       clearInterval(int.tf2);
+       getTf2Folder();
+     }
+   }, 500);
+}
 
  function getTf2Folder() {
 
@@ -79,10 +96,32 @@ let int2 = setInterval(() => {
      }
    }
    console.log('TF2 folder: ' + tf2Folder);
-   readConsoleLog();
+   if (tf2Folder == '') {
+     detect();
+     return
+   }
+   mainLoop = setInterval(updateRP, updateRate);
  }
 
 function readConsoleLog() {
   let path = tf2Folder + 'tf/console.log';
-  console.log(fs.readFileSync(path, 'utf-8'));
+  let f = fs.readFileSync(path, 'utf-8');
+  return f;
 }
+
+function updateRP() {
+  let log = readConsoleLog();
+  let clEv = 'CTFGCClientSystem::ShutdownGC\r\nCTFGCClientSystem - adding listener\r\nUnable to remove d:\\steam\\steamapps\\common\\team fortress 2\\tf\\textwindow_temp.html!\r\nShutdown function ShutdownMixerControls() not in list!!!\r\n';
+  let clEv2 = `CTFGCClientSystem::ShutdownGC
+CTFGCClientSystem - adding listener
+Unable to remove d:\\steam\\steamapps\\common\\team fortress 2\\tf\\textwindow_temp.html!
+Shutdown function ShutdownMixerControls() not in list!!!`;
+  console.log(log);
+  if (log.lastIndexOf(clEv) == log.length - clEv.length || log.lastIndexOf(clEv2) == log.length - clEv2.length) {
+    console.log('Game was shutted down')
+    clearInterval(mainLoop)
+  }
+}
+
+
+detect();
