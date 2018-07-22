@@ -1,3 +1,7 @@
+window.onload = function () {
+  ipc.send('detect');
+}
+
 function chStatus(pr, status) {
   let s;
   if (status) {

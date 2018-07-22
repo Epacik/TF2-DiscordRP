@@ -1,25 +1,25 @@
 {
   "name": "tf2-discord-rpc",
   "version": "1.0.0",
-  "description": "Create your Rich Presence on Discord in an easy and practical way.",
+  "description": "Discord RPC for Team Fortress 2",
   "main": "main.js",
   "scripts": {
-    "start": "yarn sass && electron .",
+    "start": "electron .",
     "pack": "build --dir",
-    "dist": "yarn sass && build",
+    "dist": "build",
     "sass": "node-sass -o src/css/ src/sass/"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/SrSheep/MakeYourRPC.git"
+    "url": "git+ssh://git@github.com:Epat9/node-TF2-DiscordRP.git"
   },
-  "homepage": "https://github.com/SrSheep/MakeYourRPC#readme",
+  "homepage": "https://github.com/Epat9/node-TF2-DiscordRP",
   "keywords": [
     "Electron",
     "Discord",
     "RPC"
   ],
-  "author": "Álvaro Filho <alvaro.fduarte@hotmail.com> (https://github.com/SrSheep/MakeYourRPC)",
+  "author": "Damian Kuśmierz",
   "license": "MIT",
   "dependencies": {
     "discord-rpc": "./RPC",
@@ -35,7 +35,7 @@
     "node-sass": "^4.9.0"
   },
   "build": {
-    "appId": "com.makeyourrpc",
+    "appId": "com.tf2RPC",
     "win": {
       "target": "nsis",
       "icon": "/src/img/512x512.png"
@@ -48,6 +48,6 @@
     }
   },
   "bugs": {
-    "url": "https://github.com/SrSheep/MakeYourRPC/issues"
+    "url": "https://github.com/Epat9/node-TF2-DiscordRP/issues"
   }
 }

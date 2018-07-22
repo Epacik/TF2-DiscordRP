@@ -26,3 +26,12 @@ function run() {
     ipc.send('startrpc');
   }
 }
+
+function detectAgain() {
+  ipc.send('detect');
+}
+
+ipc.on('async', (e, arg) => {
+  arg = JSON.parse(arg);
+  chStatus(arg.p, arg.st)
+});

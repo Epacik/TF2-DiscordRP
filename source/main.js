@@ -19,6 +19,9 @@ let tray;
 
 const clientId = '429697664658178059'
 
+let mainLoop;
+let updateRate = 1000;
+
 const tf2DRC = {
   isOn: {
     dis: false,
@@ -31,10 +34,20 @@ const tf2DRC = {
   tf2Exec: [],
   tf2Folder: '',
 };
+function detect() {
+  tf2DRC.tf2Exec = [];
+  detectDiscord();
+  detectTF2()
+}
+
+function sendAsync(msg) {
+  mainWindow.webContents.send('async', msg);
+}
 
 app.on('ready', () => {
   createTray();
   createWindow();
+
 
   mainWindow.once('ready-to-show', () => mainWindow.show());
 
@@ -76,6 +89,8 @@ app.on('activate', () => {
     createWindow();
   }
 });
+
+ipc.on('detect', () => detect());
 
 ipc.on('stoprpc', () => destroyRPC());
 
@@ -228,7 +243,7 @@ function detectDiscord() {
     });
     if (tf2DRC.isOn.dis) {
       console.log('discord is on');
-      mainWindow.webContents.executeJavaScript(`chStatus('dis', true)`)
+      sendAsync('{"p":"dis","st":true}');
     }
   }
 );
@@ -249,9 +264,62 @@ function detectTF2() {
         tf2DRC.tf2Exec.push(pr.command)
       }
     });
+
+    if (tf2DRC.isOn.tf2) {
+      console.log('tf2 is on');
+      getTf2Folder();
+    }
   }
 );
 }
 
+function getTf2Folder() {
 
-detectDiscord();
+  for (i = 0; i < tf2DRC.tf2Exec.length; i++) {
+    if (tf2DRC.tf2Exec[i].includes('Team Fortress 2')) {
+      let index = tf2DRC.tf2Exec[i].lastIndexOf('\\');
+      tf2DRC.tf2Folder = tf2DRC.tf2Exec[i].slice(0, index + 1);
+    }
+  }
+  console.log('TF2 folder: ' + tf2DRC.tf2Folder);
+  if (tf2DRC.tf2Folder == '') {
+    tf2DRC.isOn.tf2 = false;
+    sendAsync('{"p":"tf2","st":false}');
+    return
+  } else {
+    sendAsync('{"p":"tf2","st":true}');
+  }
+
+  mainLoop = setInterval(updateRP, updateRate);
+}
+
+
+function updateRP() {
+  let log = readConsoleLog();
+  let clEv = 'CTFGCClientSystem::ShutdownGC\r\nCTFGCClientSystem - adding listener\r\nUnable to remove d:\\steam\\steamapps\\common\\team fortress 2\\tf\\textwindow_temp.html!\r\nShutdown function ShutdownMixerControls() not in list!!!\r\n';
+  if (log.lastIndexOf(clEv) == log.length - clEv.length ) {
+    console.log('Game was shutted down')
+    clearInterval(mainLoop);
+    mainWindow.close();
+    process.exit()
+  }
+
+  if (rpcReady) {
+    rpc.setActivity({
+      details: `test`,
+      state: 'test',
+      // largeImageKey: 'test',
+      // largeImageText: 'test',
+      // smallImageKey: 'test',
+      // smallImageText: 'test',
+      instance: false,
+    });
+  }
+
+}
+
+function readConsoleLog() {
+  let path = tf2DRC.tf2Folder + 'tf/console.log';
+  let f = fs.readFileSync(path, 'utf-8');
+  return f;
+}

@@ -3,6 +3,8 @@ const dis = require('./scripts/discord.js');
 const tasks = require('./scripts/tasks.js');
 const ps = require('ps-node');
 
+
+
 DiscordRPC.register(ClientId);
 
 let rpc = new DiscordRPC.Client({ transport: 'ipc' });
