@@ -10,10 +10,27 @@ const path = require('path');
 const url = require('url');
 const DiscordRPC = require('./RPC');
 const settings = require('electron-settings');
+const ps = require('ps-node');
+const fs = require('fs');
 
 let rpc;
 let mainWindow;
 let tray;
+
+const clientId = '429697664658178059'
+
+const tf2DRC = {
+  isOn: {
+    dis: false,
+    tf2: false,
+  },
+  count: {
+    dis: 0,
+    tf2: 0,
+  },
+  tf2Exec: [],
+  tf2Folder: '',
+};
 
 app.on('ready', () => {
   createTray();
@@ -28,7 +45,7 @@ app.on('ready', () => {
   mainWindow.on('unmaximize', () => mainWindow.webContents.send('unmaximize'));
 
   if (!settings.has('clientId')) {
-    settings.set('clientId', '429697664658178059');
+    settings.set('clientId', clientId);
   }
 
   if (!settings.has('state')) {
@@ -63,17 +80,11 @@ app.on('activate', () => {
 ipc.on('stoprpc', () => destroyRPC());
 
 ipc.on('startrpc', async () => {
-  let clientId = await mainWindow.webContents.executeJavaScript(
-    'var text = "textContent" in document.body ? "textContent" : "innerText";document.getElementById("clientid")[text];'
-  );
   initRPC(clientId);
 });
 
 ipc.on('saverpc', async () => {
   settings.clearPath();
-  let clientId = await mainWindow.webContents.executeJavaScript(
-    'var text = "textContent" in document.body ? "textContent" : "innerText";document.getElementById("clientid")[text];'
-  );
   let details = await mainWindow.webContents.executeJavaScript(
     'var text = "textContent" in document.body ? "textContent" : "innerText";document.getElementById("details")[text];'
   );
@@ -86,12 +97,10 @@ ipc.on('saverpc', async () => {
   let largeImageTooltip = await mainWindow.webContents.executeJavaScript(
     'var text = "textContent" in document.body ? "textContent" : "innerText";document.getElementById("ltext")[text];'
   );
-  let smallImage = await mainWindow.webContents.executeJavaScript(
-    'var text = "textContent" in document.body ? "textContent" : "innerText";document.getElementById("simage")[text];'
-  );
+  let smallImage = 'tf2_logo';
   let smallImageTooltip = 'Team Fortress 2'
   if (process.argv[0] === 'electron') {
-    mallImageTooltip = 'Still Testing'
+    mallImageTooltip = 'Still Testing';
   }
 
   settings.set('clientId', clientId);
@@ -163,7 +172,7 @@ function createWindow() {
     height: 700,
     minHeight: 300,
     icon: __dirname + '/src/img/256x256.png',
-    frame: false,
+    frame: true,
     title: 'MakeYourRPC'
   });
 
@@ -203,3 +212,46 @@ function createTray() {
   tray.setToolTip('MakeYourRPC');
   tray.setContextMenu(trayMenu);
 }
+
+function detectDiscord() {
+  ps.lookup({
+    comand: 'discord',
+  },
+  function (err, res) {
+    if (err) {
+      throw new Error(err);
+    }
+    res.forEach( (pr) => {
+      if (pr) {
+        tf2DRC.isOn.dis = true;
+        }
+    });
+    if (tf2DRC.isOn.dis) {
+      console.log('discord is on');
+      mainWindow.webContents.executeJavaScript(`chStatus('dis', true)`)
+    }
+  }
+);
+}
+
+function detectTF2() {
+  ps.lookup({
+    comand: 'hl2',
+    arguments: 'tf',
+  },
+  function (err, res) {
+    if (err) {
+      throw new Error(err);
+    }
+    res.forEach( (pr) => {
+      if (pr) {
+        tf2DRC.isOn.tf2 = true;
+        tf2DRC.tf2Exec.push(pr.command)
+      }
+    });
+  }
+);
+}
+
+
+detectDiscord();

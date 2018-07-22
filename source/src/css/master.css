@@ -1,0 +1,24 @@
+#indicator {
+  width: 100%;
+  height: 50px;
+  margin: 10px;
+}
+
+.status {
+  width: 200px;
+  background: rgb(0, 0, 0);
+  margin: 5px auto;
+  color: white;
+  text-align: center;
+  padding: 20px 10px;
+  border-radius: 10px;
+  transition: background 0.3s;
+}
+
+.status-off {
+  background-color: rgb(186, 0, 0);
+}
+
+.status-on {
+  background-color: rgb(15, 186, 0);
+}

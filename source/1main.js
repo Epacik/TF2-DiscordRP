@@ -2,9 +2,6 @@ const fs = require('fs');
 const dis = require('./scripts/discord.js');
 const tasks = require('./scripts/tasks.js');
 const ps = require('ps-node');
-const DiscordRPC = require("discord-rpc");
-
-const ClientId = '429697664658178059';
 
 DiscordRPC.register(ClientId);
 
