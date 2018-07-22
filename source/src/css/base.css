@@ -1,0 +1,37 @@
+html,
+body {
+  background-color: #23272a;
+  font-family: Robot, 'Segoe UI', sans-serif;
+  margin: 0px;
+  height: 100%;
+  user-select: none; }
+
+.center,
+h2 {
+  text-align: center; }
+
+.title {
+  display: grid;
+  margin: auto;
+  user-select: none;
+  margin-bottom: 40px;
+  width: 40%; }
+
+.low {
+  margin-top: -10px; }
+
+h2,
+h4 {
+  color: #ffffff; }
+
+a {
+  text-align: center;
+  text-decoration: none; }
+
+.fields > h2 {
+  font-size: 20px;
+  margin-top: 20px;
+  font-weight: bold; }
+
+.fields > h4 {
+  font-size: 15px; }

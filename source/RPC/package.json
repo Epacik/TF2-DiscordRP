@@ -1,0 +1,55 @@
+{
+  "name": "discord-rpc",
+  "version": "3.0.0-beta.10",
+  "description": "A simple RPC client for Discord",
+  "keywords": [
+    "discord",
+    "rpc",
+    "rich presence",
+    "remote procedural call"
+  ],
+  "main": "src/index.js",
+  "jsdelivr": "browser.js",
+  "unpkg": "browser.js",
+  "author": "snek <me@gus.host>",
+  "license": "MIT",
+  "homepage": "https://github.com/discordjs/RPC#readme",
+  "bugs": {
+    "url": "https://github.com/discordjs/RPC/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/discordjs/RPC.git"
+  },
+  "scripts": {
+    "lint": "eslint src test --ext=js",
+    "docs": "docgen --source src --output docs.json --jsdoc jsdoc.json --custom docgen.json",
+    "example": "electron example/main.js",
+    "build:browser": "webpack",
+    "prepublishOnly": "NODE_ENV=production npm run build:browser"
+  },
+  "dependencies": {
+    "discord.js": "github:discordjs/discord.js",
+    "snekfetch": "^3.5.8"
+  },
+  "peerDependencies": {
+    "register-scheme": "github:devsnek/node-register-scheme"
+  },
+  "devDependencies": {
+    "discord.js-docgen": "github:discordjs/docgen",
+    "electron": "^1.7.9",
+    "eslint": "^4.18.1",
+    "jsdoc-strip-async-await": "^0.1.0",
+    "uglifyjs-webpack-plugin": "^1.1.2",
+    "webpack": "^3.10.0"
+  },
+  "browser": {
+    "net": false,
+    "ws": false,
+    "uws": false,
+    "erlpack": false,
+    "electron": false,
+    "register-scheme": false,
+    "./src/transports/IPC.js": false
+  }
+}

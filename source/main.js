@@ -1,156 +1,205 @@
-const fs = require('fs');
-const dis = require('./scripts/discord.js');
-const tasks = require('./scripts/tasks.js');
-const ps = require('ps-node');
-const DiscordRPC = require("discord-rpc");
+const {
+  app,
+  ipcMain: ipc,
+  BrowserWindow,
+  dialog,
+  Menu,
+  Tray
+} = require('electron');
+const path = require('path');
+const url = require('url');
+const DiscordRPC = require('./RPC');
+const settings = require('electron-settings');
 
-const ClientId = '429697664658178059';
+let rpc;
+let mainWindow;
+let tray;
 
-DiscordRPC.register(ClientId);
+app.on('ready', () => {
+  createTray();
+  createWindow();
 
-let rpc = new DiscordRPC.Client({ transport: 'ipc' });
-let rpcReady = false
+  mainWindow.once('ready-to-show', () => mainWindow.show());
 
-rpc.on('ready', () => {
-  console.log("ready");
-  rpcReady = true;
+  mainWindow.on('closed', () => (mainWindow = null));
+
+  mainWindow.on('maximize', () => mainWindow.webContents.send('maximize'));
+
+  mainWindow.on('unmaximize', () => mainWindow.webContents.send('unmaximize'));
+
+  if (!settings.has('clientId')) {
+    settings.set('clientId', '429697664658178059');
+  }
+
+  if (!settings.has('state')) {
+    settings.set('state', {
+      state: 'Estou usando o MakeYourRPC',
+      details: 'https://github.com/SrSheep/MakeYourRPC'
+    });
+  }
+
+  if (!settings.has('images')) {
+    settings.set('images', {
+      largeImage: 'fundo',
+      smallImage: 'lua',
+      largeImageTooltip: 'MakeYourRPC',
+      smallImageTooltip: 'MakeYourRPC'
+    });
+  }
 });
 
-
-
-
-
-let tf2Folder = '';
-
-let mainLoop;
-
-let updateRate = 500;
-
-let count = {
-  dis: 0,
-  tf2: 0,
-}
-
-/**
- *
- */
-let tf2Exec = [];
-
-const isOn = {
-  discord: false,
-  tf2: false,
-};
-
-function detectDiscord() {
-  ps.lookup({
-    comand: 'discord',
-  },
-  function (err, res) {
-    if (err) {
-      throw new Error(err);
-    }
-    res.forEach( (pr) => {
-      if (pr) {
-        isOn.discord = true;
-      }
-    });
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit();
   }
-);
-}
+});
 
-function detectTF2() {
-  ps.lookup({
-    comand: 'hl2',
-    arguments: 'tf',
-  },
-  function (err, res) {
-    if (err) {
-      throw new Error(err);
-    }
-    res.forEach( (pr) => {
-      if (pr) {
-        isOn.tf2 = true;
-        tf2Exec.push(pr.command)
-      }
-    });
+app.on('activate', () => {
+  if (mainWindow === null) {
+    createWindow();
   }
-);
-}
+});
 
-let int = {
-  dis: undefined,
-  tf2: undefined,
-}
+ipc.on('stoprpc', () => destroyRPC());
 
-function detect() {
-  isOn.tf2 = false;
-  isOn.discord = false;
-  tf2Exec = [];
-  detectDiscord();
-  detectTF2();
-  int.dis = setInterval(() => {
-     count.dis += 1;
-      if (isOn.discord) {
-        console.log('Discord is on');
-        clearInterval(int.dis);
-        rpc.login(ClientId).catch(console.error);
-      }}, 500);
-  int.tf2 = setInterval(() => {
-    count.tf2 += 1;
-    if (isOn.tf2) {
-      console.log('TF2 is on');
-       console.log(JSON.stringify(tf2Exec, null, '\t'));
-       clearInterval(int.tf2);
-       getTf2Folder();
-     }
-   }, 500);
-}
+ipc.on('startrpc', async () => {
+  let clientId = await mainWindow.webContents.executeJavaScript(
+    'var text = "textContent" in document.body ? "textContent" : "innerText";document.getElementById("clientid")[text];'
+  );
+  initRPC(clientId);
+});
 
- function getTf2Folder() {
-
-   for (i = 0; i < tf2Exec.length; i++) {
-     if (tf2Exec[i].includes('Team Fortress 2')) {
-       let index = tf2Exec[i].lastIndexOf('\\');
-       tf2Folder = tf2Exec[i].slice(0, index + 1);
-     }
-   }
-   console.log('TF2 folder: ' + tf2Folder);
-   if (tf2Folder == '') {
-     detect();
-     return
-   }
-   mainLoop = setInterval(updateRP, updateRate);
- }
-
-function readConsoleLog() {
-  let path = tf2Folder + 'tf/console.log';
-  let f = fs.readFileSync(path, 'utf-8');
-  return f;
-}
-
-function updateRP() {
-  let log = readConsoleLog();
-  let clEv = 'CTFGCClientSystem::ShutdownGC\r\nCTFGCClientSystem - adding listener\r\nUnable to remove d:\\steam\\steamapps\\common\\team fortress 2\\tf\\textwindow_temp.html!\r\nShutdown function ShutdownMixerControls() not in list!!!\r\n';
-  if (log.lastIndexOf(clEv) == log.length - clEv.length ) {
-    console.log('Game was shutted down')
-    clearInterval(mainLoop)
+ipc.on('saverpc', async () => {
+  settings.clearPath();
+  let clientId = await mainWindow.webContents.executeJavaScript(
+    'var text = "textContent" in document.body ? "textContent" : "innerText";document.getElementById("clientid")[text];'
+  );
+  let details = await mainWindow.webContents.executeJavaScript(
+    'var text = "textContent" in document.body ? "textContent" : "innerText";document.getElementById("details")[text];'
+  );
+  let state = await mainWindow.webContents.executeJavaScript(
+    'var text = "textContent" in document.body ? "textContent" : "innerText";document.getElementById("state")[text];'
+  );
+  let largeImage = await mainWindow.webContents.executeJavaScript(
+    'var text = "textContent" in document.body ? "textContent" : "innerText";document.getElementById("limage")[text];'
+  );
+  let largeImageTooltip = await mainWindow.webContents.executeJavaScript(
+    'var text = "textContent" in document.body ? "textContent" : "innerText";document.getElementById("ltext")[text];'
+  );
+  let smallImage = await mainWindow.webContents.executeJavaScript(
+    'var text = "textContent" in document.body ? "textContent" : "innerText";document.getElementById("simage")[text];'
+  );
+  let smallImageTooltip = 'Team Fortress 2'
+  if (process.argv[0] === 'electron') {
+    mallImageTooltip = 'Still Testing'
   }
 
-  if (rpcReady) {
-    rpc.setActivity({
-      details: `test`,
-      state: 'test',
-      // largeImageKey: 'test',
-      // largeImageText: 'test',
-      // smallImageKey: 'test',
-      // smallImageText: 'test',
-      instance: false,
-    });
-  }
+  settings.set('clientId', clientId);
+  settings.set('state', {
+    state: state,
+    details: details
+  });
+  settings.set('images', {
+    largeImage: largeImage,
+    smallImage: smallImage,
+    largeImageTooltip: largeImageTooltip,
+    smallImageTooltip: smallImageTooltip
+  });
+});
 
+function initRPC(id) {
+  rpc = new DiscordRPC.Client({ transport: 'ipc' });
+  rpc.once('ready', () => {
+    setActivity();
+    setTimeout(() => setActivity(), 1000);
+  });
+  rpc.login(id).catch(console.error);
 }
 
+function destroyRPC() {
+  if (!rpc) return;
+  rpc.clearActivity();
+  rpc.destroy();
+  rpc = null;
+}
+
+async function setActivity() {
+  if (!rpc || !mainWindow) return;
+
+  let details = await mainWindow.webContents.executeJavaScript(
+    'var text = "textContent" in document.body ? "textContent" : "innerText";document.getElementById("details")[text];'
+  );
+  let state = await mainWindow.webContents.executeJavaScript(
+    'var text = "textContent" in document.body ? "textContent" : "innerText";document.getElementById("state")[text];'
+  );
+  let largeImage = await mainWindow.webContents.executeJavaScript(
+    'var text = "textContent" in document.body ? "textContent" : "innerText";document.getElementById("limage")[text];'
+  );
+  let largeImageTooltip = await mainWindow.webContents.executeJavaScript(
+    'var text = "textContent" in document.body ? "textContent" : "innerText";document.getElementById("ltext")[text];'
+  );
+  let smallImage = 'tf2_logo'
+  let smallImageTooltip = 'Team Fortress 2';
+  if (process.argv[0] === 'electron') {
+    smallImageTooltip = 'Still testing';
+  }
 
 
+  rpc.setActivity({
+    details: details,
+    state: state,
+    largeImageKey: largeImage,
+    largeImageText: largeImageTooltip,
+    smallImageKey: smallImage,
+    smallImageText: smallImageTooltip,
+    instance: false
+  });
+}
 
-detect();
+function createWindow() {
+  mainWindow = new BrowserWindow({
+    width: 600,
+    minWidth: 400,
+    height: 700,
+    minHeight: 300,
+    icon: __dirname + '/src/img/256x256.png',
+    frame: false,
+    title: 'MakeYourRPC'
+  });
+
+  mainWindow.loadURL(
+    url.format({
+      pathname: path.join(__dirname, './src/index.html'),
+      protocol: 'file:',
+      slashes: true
+    })
+  );
+
+  // mainWindow.webContents.openDevTools();
+
+  mainWindow.on('closed', () => (mainWindow = null));
+}
+
+function createTray() {
+  tray = new Tray(path.join(__dirname, '/src/img/256x256.png'));
+  const trayMenu = Menu.buildFromTemplate([
+    {
+      label: 'MakeYourRPC',
+      enabled: false
+    },
+    {
+      label: 'Abrir',
+      click: () => mainWindow.show()
+    },
+    {
+      label: 'Fechar',
+      click: () => app.quit()
+    },
+    { type: 'separator' }
+  ]);
+
+  tray.on('double-click', () => mainWindow.show());
+
+  tray.setToolTip('MakeYourRPC');
+  tray.setContextMenu(trayMenu);
+}
