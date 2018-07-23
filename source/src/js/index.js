@@ -1,4 +1,7 @@
 window.onload = function () {
+  if (settings.get('autostart')) {
+    run();
+  }
   ipc.send('detect');
 }
 

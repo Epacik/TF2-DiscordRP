@@ -63,20 +63,8 @@ app.on('ready', () => {
     settings.set('clientId', clientId);
   }
 
-  if (!settings.has('state')) {
-    settings.set('state', {
-      state: 'Estou usando o MakeYourRPC',
-      details: 'https://github.com/SrSheep/MakeYourRPC'
-    });
-  }
-
-  if (!settings.has('images')) {
-    settings.set('images', {
-      largeImage: 'fundo',
-      smallImage: 'lua',
-      largeImageTooltip: 'MakeYourRPC',
-      smallImageTooltip: 'MakeYourRPC'
-    });
+  if (!settings.has('autostart')) {
+    settings.set('autostart', true);
   }
 });
 
@@ -299,6 +287,7 @@ function updateRP() {
     console.log('Game was shutted down')
     clearInterval(mainLoop);
     mainWindow.close();
+    fs.writeFileSync(tf2DRC.tf2Folder + 'tf/console.log', '');
     process.exit()
   }
 

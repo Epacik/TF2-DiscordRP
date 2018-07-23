@@ -17,12 +17,12 @@ function run() {
   if (btn.hasAttribute('date-run')) {
     btn.setAttribute('class', 'button button_blue');
     btn.removeAttribute('date-run');
-    btn.innerHTML = '<i class="fas fa-play"></i> Ligar';
+    btn.innerHTML = '<i class="fas fa-play"></i> Turn on';
     ipc.send('stoprpc');
   } else {
     btn.setAttribute('class', 'button button_red');
     btn.setAttribute('date-run', 'run');
-    btn.innerHTML = '<i class="fas fa-stop"></i> Desligar';
+    btn.innerHTML = '<i class="fas fa-stop"></i> Turn off';
     ipc.send('startrpc');
   }
 }
