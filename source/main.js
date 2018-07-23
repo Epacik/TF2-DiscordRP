@@ -17,10 +17,22 @@ let rpc;
 let mainWindow;
 let tray;
 
+
+/**
+ * ID of discord app
+ * default: '429697664658178059'
+ */
 const clientId = '429697664658178059'
 
 let mainLoop;
+
+/**
+ * How often RPC would be updated in `ms`
+ * default: 1000
+ */
 let updateRate = 1000;
+
+let dCounter = 0;
 
 const tf2DRC = {
   isOn: {
@@ -168,13 +180,14 @@ async function setActivity() {
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 600,
+    width: 590,
     minWidth: 400,
-    height: 700,
+    height: 400,
     minHeight: 300,
     icon: __dirname + '/src/img/256x256.png',
     frame: true,
-    title: 'MakeYourRPC'
+    title: 'MakeYourRPC',
+    resizable: false
   });
 
   mainWindow.loadURL(
@@ -247,7 +260,12 @@ function detectTF2() {
     res.forEach( (pr) => {
       if (pr) {
         tf2DRC.isOn.tf2 = true;
-        tf2DRC.tf2Exec.push(pr.command);
+        if (pr.arguments.includes('tf')) {
+          tf2DRC.tf2Exec.push(pr.command);
+          if (!pr.arguments.includes('-condebug')) {
+            sendAsync('{"p":"tf2-noCondebug","st":true}');
+          }
+        }
       }
     });
 
@@ -291,10 +309,11 @@ function updateRP() {
     process.exit()
   }
 
+  dCounter++;
   if (tf2DRC.rpcReady) {
     rpc.setActivity({
-      details: `test`,
-      state: 'test',
+      details: `Working since: ${dCounter} seconds`,
+      state: 'state',
       largeImageKey: 'tf2_logo',
       largeImageText: 'Team Fortress 2',
       smallImageKey: 'test',

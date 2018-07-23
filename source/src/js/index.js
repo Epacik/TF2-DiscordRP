@@ -30,5 +30,11 @@ function chStatus(pr, status) {
       document.getElementById('dis-status').classList.add('status-off');
     }
     document.querySelector('#dis-status span').innerHTML = s;
+  }else if (pr === 'tf2-noCondebug') {
+    noCondebug();
   }
+}
+
+function noCondebug() {
+  alert('Team Fortress 2 is currently running, but it\'s missing a launch parameter \"-condebug\" which is needed in this app.\nIn order to launch TF2 with that parameter:\n1. Open your Steam library.\n2. Press right mouse button on \"Team Fortress 2\"\n3. Click on \"Properties\"\n4. Click \"Set launch options...\" button\n5. Type in \"-condebug\" (without \" \")\n6. Click  \"OK\"')
 }
