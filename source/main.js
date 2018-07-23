@@ -31,6 +31,8 @@ const tf2DRC = {
     dis: 0,
     tf2: 0,
   },
+  rpcReady: false,
+  condebug: false,
   tf2Exec: [],
   tf2Folder: '',
 };
@@ -134,14 +136,14 @@ ipc.on('saverpc', async () => {
 function initRPC(id) {
   rpc = new DiscordRPC.Client({ transport: 'ipc' });
   rpc.once('ready', () => {
-    setActivity();
-    setTimeout(() => setActivity(), 1000);
+    tf2DRC.rpcReady = true;
   });
   rpc.login(id).catch(console.error);
 }
 
 function destroyRPC() {
   if (!rpc) return;
+  tf2DRC.rpcReady = false;
   rpc.clearActivity();
   rpc.destroy();
   rpc = null;
@@ -156,13 +158,9 @@ async function setActivity() {
   let state = await mainWindow.webContents.executeJavaScript(
     'var text = "textContent" in document.body ? "textContent" : "innerText";document.getElementById("state")[text];'
   );
-  let largeImage = await mainWindow.webContents.executeJavaScript(
-    'var text = "textContent" in document.body ? "textContent" : "innerText";document.getElementById("limage")[text];'
-  );
-  let largeImageTooltip = await mainWindow.webContents.executeJavaScript(
-    'var text = "textContent" in document.body ? "textContent" : "innerText";document.getElementById("ltext")[text];'
-  );
-  let smallImage = 'tf2_logo'
+  let largeImage = "tf2_logo"
+  let largeImageTooltip ='Team Fortress 2'
+  let smallImage = 'none'
   let smallImageTooltip = 'Team Fortress 2';
   if (process.argv[0] === 'electron') {
     smallImageTooltip = 'Still testing';
@@ -261,7 +259,7 @@ function detectTF2() {
     res.forEach( (pr) => {
       if (pr) {
         tf2DRC.isOn.tf2 = true;
-        tf2DRC.tf2Exec.push(pr.command)
+        tf2DRC.tf2Exec.push(pr.command);
       }
     });
 
@@ -304,16 +302,17 @@ function updateRP() {
     process.exit()
   }
 
-  if (rpcReady) {
+  if (tf2DRC.rpcReady) {
     rpc.setActivity({
       details: `test`,
       state: 'test',
-      // largeImageKey: 'test',
-      // largeImageText: 'test',
-      // smallImageKey: 'test',
-      // smallImageText: 'test',
+      largeImageKey: 'tf2_logo',
+      largeImageText: 'Team Fortress 2',
+      smallImageKey: 'test',
+      smallImageText: 'test',
       instance: false,
     });
+
   }
 
 }
