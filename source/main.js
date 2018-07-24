@@ -49,6 +49,61 @@ const tf2DRC = {
   tf2Folder: '',
 };
 
+let gamemodes = [
+  {
+    str: 'arena',
+    desc: 'Arena',
+  },
+  {
+    str: 'ctf',
+    desc: 'Capture the Flag',
+  },
+  {
+    str: 'cp',
+    desc: 'Control Point',
+  },
+  {
+    str: 'koth',
+    desc: 'King of the Hill',
+  },
+  {
+    str: 'mvm',
+    desc: 'Mann vs. Machine',
+  },
+  {
+    str: 'pass',
+    desc: 'PASS Time',
+  },
+  {
+    str: 'pl',
+    desc: 'Payload',
+  },
+  {
+    str: 'plr',
+    desc: 'Payload Race',
+  },
+  {
+    str: 'pd',
+    desc: 'Player Destruction',
+  },
+  {
+    str: 'rd',
+    desc: 'Robot Destruction',
+  },
+  {
+    str: 'sd',
+    desc: 'Special Delivery',
+  },
+  {
+    str: 'tc',
+    desc: 'Territorial Control',
+  },
+  {
+    str: 'tr',
+    desc: 'Training Mode',
+  },
+]
+
 const gamestate = {
     details: 'Main menu',
     state: 'Idle',
@@ -330,8 +385,9 @@ function updateRP() {
     } else if (lc.includes('SV_ActivateServer')) {
       gamestate.details = 'Creating local server';
       gamestate.state = 'Connecting';
-    } else if (lc.includes('Lobby destroyed') || lc.includes('Leaving queue for match group 6v6 Ladder Match') || lc.includes('Leaving queue for match group 12v12 Casual Match') || lc.includes('Leaving queue for match group MvM Practice') || lc.includes('Server shutting down')) {
-      gamestate.state = 'Idle\nlol';
+    } else if (lc.includes('Lobby destroyed') || lc.includes('Leaving queue for match group 6v6 Ladder Match') || lc.includes('Leaving queue for match group 12v12 Casual Match') || lc.includes('Leaving queue for match group MvM Practice') || lc.includes('Server shutting down') || lc.includes('disconnecting')) {
+      gamestate.details = "Main menu";
+      gamestate.state = 'Idle';
     } else if (lc.includes('Disconnecting from abandoned match server')) {
       gamestate.state = 'Disconnecting from server';
     }
@@ -342,15 +398,11 @@ function updateRP() {
       let map = lc.slice(lc.indexOf('Map:'));
       map = map.slice(0, map.indexOf('\r'));
       console.log(map);
-      if (map == 'Map: ctf_2fort') {
-        map
-      }
       gamestate.details = map;
+      gamestate.state = detectGamemode(map);
     }
 
   }
-
-  dCounter++;
   if (tf2DRC.rpcReady) {
     rpc.setActivity({
       details: gamestate.details,
@@ -388,4 +440,14 @@ function getLastLines(str, counter) {
   }
   // console.log(JSON.stringify(r));
   return r.join('');
+}
+
+function detectGamemode(map) {
+  let gm = map.slice(5, map.indexOf('_'));
+  for (i = 0; i < gamemodes.length; i++) {
+    if (gm === gamemodes[i].str) {
+      gm = gamemodes[i].desc;
+    }
+  }
+  return gm;
 }
