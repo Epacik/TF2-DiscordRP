@@ -30,7 +30,7 @@ let mainLoop;
  * How often RPC would be updated in `ms`
  * default: 1000
  */
-let updateRate = 1000;
+let updateRate = 100;
 
 let dCounter = 0;
 
@@ -48,6 +48,12 @@ const tf2DRC = {
   tf2Exec: [],
   tf2Folder: '',
 };
+
+const gamestate = {
+    details: 'Main menu',
+    state: 'Idle',
+};
+
 function detect() {
   tf2DRC.tf2Exec = [];
   detectDiscord();
@@ -300,23 +306,55 @@ function getTf2Folder() {
 
 function updateRP() {
   let log = readConsoleLog();
-  let clEv = 'CTFGCClientSystem::ShutdownGC\r\nCTFGCClientSystem - adding listener\r\nUnable to remove d:\\steam\\steamapps\\common\\team fortress 2\\tf\\textwindow_temp.html!\r\nShutdown function ShutdownMixerControls() not in list!!!\r\n';
-  if (log.lastIndexOf(clEv) == log.length - clEv.length ) {
-    console.log('Game was shutted down')
-    clearInterval(mainLoop);
-    mainWindow.close();
-    fs.writeFileSync(tf2DRC.tf2Folder + 'tf/console.log', '');
-    process.exit()
+  let clEv = 'Shutdown function ShutdownMixerControls() not in list!!!\r\n';
+  if (log.includes(clEv)) {
+    if (log.lastIndexOf(clEv) == log.length - clEv.length ) {
+      console.log('Game was shutted down')
+      clearInterval(mainLoop);
+      mainWindow.close();
+      fs.writeFileSync(tf2DRC.tf2Folder + 'tf/console.log', '');
+      process.exit()
+    } else if (log.lastIndexOf(clEv) != log.length - clEv.length) {
+      log = log.slice(log.lastIndexOf(clEv) + clEv.length)
+    }
+  }
+  if (log.length > 1) {
+    let lc = getLastLines(log, 1) //lc == lastCommand
+    // console.log(`Last 10 commands: \n${lastCommand}`);
+    if (lc.includes('Entering queue for match group 12v12 Casual Match')) {
+      gamestate.state = 'Queued for Casual Match'
+    } else if (lc.includes('Entering queue for match group 6v6 Ladder Match')) {
+      gamestate.state = 'Queued for Ranked Match'
+    } else if (lc.includes('Entering queue for match group MvM Practice')) {
+      gamestate.state = 'Queued for MvM Training Match'
+    } else if (lc.includes('SV_ActivateServer')) {
+      gamestate.details = 'Creating local server';
+      gamestate.state = 'Connecting';
+    } else if (lc.includes('Lobby destroyed') || lc.includes('Leaving queue for match group 6v6 Ladder Match') || lc.includes('Leaving queue for match group 12v12 Casual Match') || lc.includes('Leaving queue for match group MvM Practice')) {
+      gamestate.state = 'Idle';
+    } else if (lc.includes('Disconnecting from abandoned match server')) {
+      gamestate.state = 'Disconnecting from server';
+    }
+
+    lc = getLastLines(log, 10);
+
+    if (lc.includes('Team Fortress') && lc.includes('Map:')) {
+      let map = lc.slice(lc.indexOf('Map:'));
+      map = map.slice(0, map.indexOf('\r'));
+      console.log(map);
+      gamestate.details = map;
+    }
+
   }
 
   dCounter++;
   if (tf2DRC.rpcReady) {
     rpc.setActivity({
-      details: `Working since: ${dCounter} seconds`,
-      state: 'state',
+      details: gamestate.details,
+      state: gamestate.state,
       largeImageKey: 'tf2_logo',
       largeImageText: 'Team Fortress 2',
-      smallImageKey: 'test',
+      smallImageKey: 'none',
       smallImageText: 'test',
       instance: false,
     });
@@ -329,4 +367,22 @@ function readConsoleLog() {
   let path = tf2DRC.tf2Folder + 'tf/console.log';
   let f = fs.readFileSync(path, 'utf-8');
   return f;
+}
+
+function getLastLines(str, counter) {
+  // console.log('original str');
+  // console.log(str);
+  str = str.trim()
+  // console.log('str trimmed');
+  // console.log(str);
+  let r = [];
+
+  for (i = 0; i < counter; i++) {
+    r.unshift(str.slice(str.lastIndexOf('\r\n')));
+    str = str.slice(0, str.lastIndexOf('\r\n'));
+    // console.log('str in for #' + i);
+    // console.log(str);
+  }
+  // console.log(JSON.stringify(r));
+  return r.join('');
 }
