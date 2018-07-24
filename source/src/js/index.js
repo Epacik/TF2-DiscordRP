@@ -16,9 +16,14 @@ function chStatus(pr, status) {
     if (status){
       document.getElementById('tf2-status').classList.remove('status-off');
       document.getElementById('tf2-status').classList.add('status-on');
+      launchTF2();
     } else {
       document.getElementById('tf2-status').classList.remove('status-on');
       document.getElementById('tf2-status').classList.add('status-off');
+      if (confirm('Team Fortress 2 is not working right now.\nWould you like to launch it?')) {
+        launchTF2();
+        setTimeout(function() {detectAgain()}, 5000);
+      }
     }
     document.querySelector('#tf2-status span').innerHTML = s;
   } else if (pr === 'dis') {
@@ -37,4 +42,8 @@ function chStatus(pr, status) {
 
 function noCondebug() {
   alert('Team Fortress 2 is currently running, but it\'s missing a launch parameter \"-condebug\" which is needed in this app.\nIn order to launch TF2 with that parameter:\n1. Open your Steam library.\n2. Press right mouse button on \"Team Fortress 2\"\n3. Click on \"Properties\"\n4. Click \"Set launch options...\" button\n5. Add \"-condebug\" at the end (without \" \")\n6. Click  \"OK\"')
+}
+
+function launchTF2() {
+  document.querySelector('iframe').src = 'steam://rungameid/440// -condebug';
 }

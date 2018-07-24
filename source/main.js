@@ -28,9 +28,9 @@ let mainLoop;
 
 /**
  * How often RPC would be updated in `ms`
- * default: 1000
+ * default: 500
  */
-let updateRate = 100;
+let updateRate = 500;
 
 let dCounter = 0;
 
@@ -330,8 +330,8 @@ function updateRP() {
     } else if (lc.includes('SV_ActivateServer')) {
       gamestate.details = 'Creating local server';
       gamestate.state = 'Connecting';
-    } else if (lc.includes('Lobby destroyed') || lc.includes('Leaving queue for match group 6v6 Ladder Match') || lc.includes('Leaving queue for match group 12v12 Casual Match') || lc.includes('Leaving queue for match group MvM Practice')) {
-      gamestate.state = 'Idle';
+    } else if (lc.includes('Lobby destroyed') || lc.includes('Leaving queue for match group 6v6 Ladder Match') || lc.includes('Leaving queue for match group 12v12 Casual Match') || lc.includes('Leaving queue for match group MvM Practice') || lc.includes('Server shutting down')) {
+      gamestate.state = 'Idle\nlol';
     } else if (lc.includes('Disconnecting from abandoned match server')) {
       gamestate.state = 'Disconnecting from server';
     }
@@ -342,6 +342,9 @@ function updateRP() {
       let map = lc.slice(lc.indexOf('Map:'));
       map = map.slice(0, map.indexOf('\r'));
       console.log(map);
+      if (map == 'Map: ctf_2fort') {
+        map
+      }
       gamestate.details = map;
     }
 
