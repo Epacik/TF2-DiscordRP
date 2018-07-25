@@ -51,6 +51,7 @@ const tf2DRC = {
 };
 
 let gamemodes = [];
+let maps = [];
 
 const gamestate = {
     details: 'Main menu',
@@ -429,6 +430,19 @@ function getGM() {
    } else {
      console.log('Gamemodes updated succesfully!');
      gamemodes = data.body;
+   }
+ });
+}
+
+function getMaps() {
+ let url = 'https://gist.githubusercontent.com/Epat9/7c6abcef909d9d293d33c599898ff7eb/raw/';
+ getJSON(url, (er, data) => {
+   if (er !== null) {
+     console.log('Invalid URL to maps!');
+     return;
+   } else {
+     console.log('Maps updated succesfully!');
+     maps = data.body;
    }
  });
 }
