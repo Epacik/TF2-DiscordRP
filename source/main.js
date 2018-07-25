@@ -427,7 +427,7 @@ function detectGamemode(map) {
 
   gm += f;
 
-  return gm;
+  return "Playing: " + gm;
 }
 
 function detectMap(map) {
