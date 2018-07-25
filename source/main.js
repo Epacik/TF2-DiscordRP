@@ -12,6 +12,7 @@ const DiscordRPC = require('./RPC');
 const settings = require('electron-settings');
 const ps = require('ps-node');
 const fs = require('fs');
+const request = require("request");
 
 let rpc;
 let mainWindow;
@@ -123,6 +124,7 @@ app.on('ready', () => {
   createTray();
   createWindow();
 
+  getGM();
 
   mainWindow.once('ready-to-show', () => mainWindow.show());
 
@@ -374,6 +376,23 @@ function updateRP() {
     }
   }
   if (log.length > 1) {
+
+    lc = getLastLines(log, 10);
+
+    if (lc.includes('Team Fortress') && lc.includes('Map:')) {
+      let map = lc.slice(lc.indexOf('Map:'));
+      map = map.slice(0, map.indexOf('\r'));
+      console.log(map);
+      gamestate.details = map;
+      gamestate.state = detectGamemode(map);
+    }
+
+    lc = getLastLines(log, 5);
+    if (lc.includes('Lobby destroyed')) {
+      gamestate.details = "Main menu";
+      gamestate.state = 'Idle';
+    }
+
     let lc = getLastLines(log, 1) //lc == lastCommand
     // console.log(`Last 10 commands: \n${lastCommand}`);
     if (lc.includes('Entering queue for match group 12v12 Casual Match')) {
@@ -385,21 +404,16 @@ function updateRP() {
     } else if (lc.includes('SV_ActivateServer')) {
       gamestate.details = 'Creating local server';
       gamestate.state = 'Connecting';
-    } else if (lc.includes('Lobby destroyed') || lc.includes('Leaving queue for match group 6v6 Ladder Match') || lc.includes('Leaving queue for match group 12v12 Casual Match') || lc.includes('Leaving queue for match group MvM Practice') || lc.includes('Server shutting down') || lc.includes('disconnecting')) {
+    } else if (
+      lc.includes('Lobby destroyed') ||
+      lc.includes('Leaving queue for match group 6v6 Ladder Match') ||
+      lc.includes('Leaving queue for match group 12v12 Casual Match') ||
+      lc.includes('Leaving queue for match group MvM Practice') || lc.includes('Server shutting down') ||
+      lc.includes('disconnecting')) {
       gamestate.details = "Main menu";
       gamestate.state = 'Idle';
     } else if (lc.includes('Disconnecting from abandoned match server')) {
       gamestate.state = 'Disconnecting from server';
-    }
-
-    lc = getLastLines(log, 10);
-
-    if (lc.includes('Team Fortress') && lc.includes('Map:')) {
-      let map = lc.slice(lc.indexOf('Map:'));
-      map = map.slice(0, map.indexOf('\r'));
-      console.log(map);
-      gamestate.details = map;
-      gamestate.state = detectGamemode(map);
     }
 
   }
@@ -453,18 +467,10 @@ function detectGamemode(map) {
 }
 
 let getJSON = function(url, callback) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
-    xhr.responseType = 'json';
-    xhr.onload = function() {
-      var status = xhr.status;
-      if (status === 200) {
-        callback(null, xhr.response);
-      } else {
-        callback(status, xhr.response);
-      }
-    };
-    xhr.send();
+  request({
+  url: url,
+  json: true
+}, callback);
 };
 
 function getGM() {
@@ -475,7 +481,7 @@ function getGM() {
      return;
    } else {
      console.log('Gamemodes updated succesfully!');
-     gamemodes = data;
+     gamemodes = data.body;
    }
  });
 }
