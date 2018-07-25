@@ -377,7 +377,7 @@ function updateRP() {
   }
   if (log.length > 1) {
 
-    lc = getLastLines(log, 10);
+    let lc = getLastLines(log, 10);
 
     if (lc.includes('Team Fortress') && lc.includes('Map:')) {
       let map = lc.slice(lc.indexOf('Map:'));
@@ -393,7 +393,7 @@ function updateRP() {
       gamestate.state = 'Idle';
     }
 
-    let lc = getLastLines(log, 1) //lc == lastCommand
+    lc = getLastLines(log, 1) //lc == lastCommand
     // console.log(`Last 10 commands: \n${lastCommand}`);
     if (lc.includes('Entering queue for match group 12v12 Casual Match')) {
       gamestate.state = 'Queued for Casual Match'
