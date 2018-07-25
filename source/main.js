@@ -51,55 +51,55 @@ const tf2DRC = {
 
 let gamemodes = [
   {
-    str: 'arena',
+    prefix: 'arena',
     desc: 'Arena',
   },
   {
-    str: 'ctf',
+    prefix: 'ctf',
     desc: 'Capture the Flag',
   },
   {
-    str: 'cp',
+    prefix: 'cp',
     desc: 'Control Point',
   },
   {
-    str: 'koth',
+    prefix: 'koth',
     desc: 'King of the Hill',
   },
   {
-    str: 'mvm',
+    prefix: 'mvm',
     desc: 'Mann vs. Machine',
   },
   {
-    str: 'pass',
+    prefix: 'pass',
     desc: 'PASS Time',
   },
   {
-    str: 'pl',
+    prefix: 'pl',
     desc: 'Payload',
   },
   {
-    str: 'plr',
+    prefix: 'plr',
     desc: 'Payload Race',
   },
   {
-    str: 'pd',
+    prefix: 'pd',
     desc: 'Player Destruction',
   },
   {
-    str: 'rd',
+    prefix: 'rd',
     desc: 'Robot Destruction',
   },
   {
-    str: 'sd',
+    prefix: 'sd',
     desc: 'Special Delivery',
   },
   {
-    str: 'tc',
+    prefix: 'tc',
     desc: 'Territorial Control',
   },
   {
-    str: 'tr',
+    prefix: 'tr',
     desc: 'Training Mode',
   },
 ]
@@ -445,14 +445,14 @@ function getLastLines(str, counter) {
 function detectGamemode(map) {
   let gm = map.slice(5, map.indexOf('_'));
   for (i = 0; i < gamemodes.length; i++) {
-    if (gm === gamemodes[i].str) {
+    if (gm === gamemodes[i].prefix) {
       gm = gamemodes[i].desc;
     }
   }
   return gm;
 }
 
-var getJSON = function(url, callback) {
+let getJSON = function(url, callback) {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
     xhr.responseType = 'json';
@@ -466,3 +466,7 @@ var getJSON = function(url, callback) {
     };
     xhr.send();
 };
+
+function getGM() {
+
+}
