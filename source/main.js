@@ -468,5 +468,14 @@ let getJSON = function(url, callback) {
 };
 
 function getGM() {
-
+ let url = 'https://gist.githubusercontent.com/Epat9/7c6abcef909d9d293d33c599898ff7eb/raw/';
+ getJSON(url, (er, data) => {
+   if (er !== null) {
+     console.log('Invalid URL to gamemodes!');
+     return;
+   } else {
+     console.log('Gamemodes updated succesfully!');
+     gamemodes = data;
+   }
+ });
 }
