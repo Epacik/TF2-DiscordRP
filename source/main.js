@@ -406,7 +406,12 @@ function getLastLines(str, counter) {
 }
 
 function detectGamemode(map) {
-  let gm = map.slice(5, map.indexOf('_'));
+  let gm;
+  if (map.includes('_')) {
+    gm = map.slice(5, map.indexOf('_'));
+  } else {
+    gm = 'Other';
+  }
   let f = '';
   for (i = 0; i < gamemodes.length; i++) {
     if (gm === gamemodes[i].prefix) {
