@@ -50,60 +50,7 @@ const tf2DRC = {
   tf2Folder: '',
 };
 
-let gamemodes = [
-  {
-    prefix: 'arena',
-    desc: 'Arena',
-  },
-  {
-    prefix: 'ctf',
-    desc: 'Capture the Flag',
-  },
-  {
-    prefix: 'cp',
-    desc: 'Control Point',
-  },
-  {
-    prefix: 'koth',
-    desc: 'King of the Hill',
-  },
-  {
-    prefix: 'mvm',
-    desc: 'Mann vs. Machine',
-  },
-  {
-    prefix: 'pass',
-    desc: 'PASS Time',
-  },
-  {
-    prefix: 'pl',
-    desc: 'Payload',
-  },
-  {
-    prefix: 'plr',
-    desc: 'Payload Race',
-  },
-  {
-    prefix: 'pd',
-    desc: 'Player Destruction',
-  },
-  {
-    prefix: 'rd',
-    desc: 'Robot Destruction',
-  },
-  {
-    prefix: 'sd',
-    desc: 'Special Delivery',
-  },
-  {
-    prefix: 'tc',
-    desc: 'Territorial Control',
-  },
-  {
-    prefix: 'tr',
-    desc: 'Training Mode',
-  },
-]
+let gamemodes = [];
 
 const gamestate = {
     details: 'Main menu',
@@ -245,7 +192,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 590,
     minWidth: 400,
-    height: 400,
+    height: 420,
     minHeight: 300,
     icon: __dirname + '/src/img/256x256.png',
     frame: true,
