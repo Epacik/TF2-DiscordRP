@@ -73,6 +73,7 @@ app.on('ready', () => {
   createWindow();
 
   getGM();
+  getMaps();
 
   mainWindow.once('ready-to-show', () => mainWindow.show());
 
@@ -331,7 +332,7 @@ function updateRP() {
       let map = lc.slice(lc.indexOf('Map:'));
       map = map.slice(0, map.indexOf('\r'));
       console.log(map);
-      gamestate.details = map;
+      gamestate.details = detectMap(map);
       gamestate.state = detectGamemode(map);
     }
 
@@ -406,12 +407,33 @@ function getLastLines(str, counter) {
 
 function detectGamemode(map) {
   let gm = map.slice(5, map.indexOf('_'));
+  let f = '';
   for (i = 0; i < gamemodes.length; i++) {
     if (gm === gamemodes[i].prefix) {
       gm = gamemodes[i].desc;
     }
+    if (maps[i].medieval && map.slice(5) === maps[i].filename) {
+      f = "(Medieval Mode)";
+    }
   }
+  if (map.slice(map.lastIndexOf('_') + 1) === 'event') {
+    f = '(Halloween)';
+  }
+
+  gm += f;
+
   return gm;
+}
+
+function detectMap(map) {
+  let m = map.slice(5);
+  console.log(m);
+  for (i = 0; i < maps.length; i++) {
+    if (m === maps[i].filename) {
+      m = maps[i].mapname;
+    }
+  }
+  return 'On: ' + m;
 }
 
 let getJSON = function(url, callback) {
@@ -435,7 +457,7 @@ function getGM() {
 }
 
 function getMaps() {
- let url = 'https://gist.githubusercontent.com/Epat9/7c6abcef909d9d293d33c599898ff7eb/raw/';
+ let url = 'https://gist.githubusercontent.com/Epat9/e4edd035b771822ca9f9c21c7021902d/raw/';
  getJSON(url, (er, data) => {
    if (er !== null) {
      console.log('Invalid URL to maps!');
