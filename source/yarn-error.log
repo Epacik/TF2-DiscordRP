@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\damia\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js
+  C:\Program Files\nodejs\node.exe C:\Users\damia\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add electron-builder
 
 PATH: 
-  c:\programdata\oracle\java\javapath;c:\windows\system32;c:\windows;c:\windows\system32\wbem;c:\windows\system32\windowspowershell\v1.0\;c:\program files\git\cmd;c:\program files\putty\;C:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static;C:\Program Files (x86)\AMD\ATI.ACE\Core-Static;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files (x86)\GtkSharp\2.12\bin\;C:\Program Files (x86)\ZeroTier\One\;C:\Users\damia\AppData\Roaming\npm\node_modules\;C:\Users\damia\AppData\Roaming\npm\node_modules\*\;C:\Users\damia\AppData\Roaming\npm\node_modules\electron\;C:\Users\damia\AppData\Roaming\npm\;C:\Users\damia\AppData\Roaming\npm\node_modules\*\*\;C:\Users\damia\AppData\Roaming\npm\node_modules\electron\dist;C:\Program Files\nodejs\;C:\Program Files (x86)\Yarn\bin;C:\Program Files\Git\cmd;C:\Program Files (x86)\Microsoft Emulator Manager\1.0\;C:\Gradle\gradle-4.3.1\bin;C:\Program Files (x86)\Android\android-sdk\platform-tools;C:\Program Files (x86)\Android\android-sdk\tools;;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\Gpg4win\..\GnuPG\bin;C:\Users\damia\AppData\Local\Programs\Python\Python37\Scripts\;C:\Users\damia\AppData\Local\Programs\Python\Python37\;C:\Program Files (x86)\Nmap;C:\Users\damia\AppData\Roaming\npm\node_modules;C:\Users\damia\AppData\Roaming\npm;C:\Users\damia\AppData\Local\Microsoft\WindowsApps;C:\Users\damia\AppData\Local\GitHubDesktop\bin;C:\Users\damia\AppData\Local\Keybase\
+  c:\programdata\oracle\java\javapath;c:\windows\system32;c:\windows;c:\windows\system32\wbem;c:\windows\system32\windowspowershell\v1.0\;c:\program files\git\cmd;c:\program files\putty\;C:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static;C:\Program Files (x86)\AMD\ATI.ACE\Core-Static;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files (x86)\GtkSharp\2.12\bin\;C:\Program Files (x86)\ZeroTier\One\;C:\Users\damia\AppData\Roaming\npm\node_modules\;C:\Users\damia\AppData\Roaming\npm\node_modules\*\;C:\Users\damia\AppData\Roaming\npm\node_modules\electron\;C:\Users\damia\AppData\Roaming\npm\;C:\Users\damia\AppData\Roaming\npm\node_modules\*\*\;C:\Users\damia\AppData\Roaming\npm\node_modules\electron\dist;C:\Program Files\nodejs\;C:\Program Files (x86)\Yarn\bin;C:\Program Files (x86)\Microsoft Emulator Manager\1.0\;C:\Gradle\gradle-4.3.1\bin;C:\Program Files (x86)\Android\android-sdk\platform-tools;C:\Program Files (x86)\Android\android-sdk\tools;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\Gpg4win\..\GnuPG\bin;C:\Program Files\Git\cmd;C:\Users\damia\AppData\Local\Programs\Python\Python37\Scripts\;C:\Users\damia\AppData\Local\Programs\Python\Python37\;C:\Program Files (x86)\Nmap;C:\Users\damia\AppData\Roaming\npm\node_modules;C:\Users\damia\AppData\Roaming\npm;C:\Users\damia\AppData\Local\Microsoft\WindowsApps;C:\Users\damia\AppData\Local\GitHubDesktop\bin;C:\Users\damia\AppData\Local\Keybase\
 
 Yarn version: 
   1.7.0
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: EBUSY: resource busy or locked, unlink 'F:\Programowanie\JS\node-TF2-DiscordRP\source\node_modules\electron\dist\resources\electron.asar'
+  Error: EBUSY: resource busy or locked, unlink 'F:\Programowanie\JS\TF2-DiscordRP\source\node_modules\electron\dist\resources\default_app.asar'
 
 npm manifest: 
   {
@@ -30,9 +30,9 @@ npm manifest:
     },
     "repository": {
       "type": "git",
-      "url": "git+ssh://git@github.com:Epat9/node-TF2-DiscordRP.git"
+      "url": "git+ssh://git@github.com:Epat9/TF2-DiscordRP.git"
     },
-    "homepage": "https://github.com/Epat9/node-TF2-DiscordRP",
+    "homepage": "https://github.com/Epat9/TF2-DiscordRP",
     "keywords": [
       "Electron",
       "Discord",
@@ -42,7 +42,7 @@ npm manifest:
     "license": "MIT",
     "dependencies": {
       "discord-rpc": "./RPC",
-      "discord.js": "./discordjs",
+      "discord.js": "./discord.js",
       "electron-settings": "^3.2.0",
       "jquery": "^3.3.1",
       "jsdom": "^11.10.0",
@@ -68,7 +68,7 @@ npm manifest:
       }
     },
     "bugs": {
-      "url": "https://github.com/Epat9/node-TF2-DiscordRP/issues"
+      "url": "https://github.com/Epat9/TF2-DiscordRP/issues"
     }
   }
 

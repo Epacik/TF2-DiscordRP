@@ -331,7 +331,6 @@ function updateRP() {
     if (lc.includes('Team Fortress') && lc.includes('Map:')) {
       let map = lc.slice(lc.indexOf('Map:'));
       map = map.slice(0, map.indexOf('\r'));
-      console.log(map);
       gamestate.details = detectMap(map);
       gamestate.state = detectGamemode(map);
     }
@@ -345,11 +344,13 @@ function updateRP() {
     lc = getLastLines(log, 1) //lc == lastCommand
     // console.log(`Last 10 commands: \n${lastCommand}`);
     if (lc.includes('Entering queue for match group 12v12 Casual Match')) {
-      gamestate.state = 'Queued for Casual Match'
+      gamestate.state = 'Queued for Casual Match';
     } else if (lc.includes('Entering queue for match group 6v6 Ladder Match')) {
-      gamestate.state = 'Queued for Ranked Match'
+      gamestate.state = 'Queued for Ranked Match';
+    } else if (lc.includes('Entering queue for match group MvM MannUp')) {
+      gamestate.state = 'Queued for MvM Mann Up Match';
     } else if (lc.includes('Entering queue for match group MvM Practice')) {
-      gamestate.state = 'Queued for MvM Training Match'
+      gamestate.state = 'Queued for MvM Training Match';
     } else if (lc.includes('SV_ActivateServer')) {
       gamestate.details = 'Creating local server';
       gamestate.state = 'Connecting';
@@ -357,7 +358,9 @@ function updateRP() {
       lc.includes('Lobby destroyed') ||
       lc.includes('Leaving queue for match group 6v6 Ladder Match') ||
       lc.includes('Leaving queue for match group 12v12 Casual Match') ||
-      lc.includes('Leaving queue for match group MvM Practice') || lc.includes('Server shutting down') ||
+      lc.includes('Leaving queue for match group MvM Practice') ||
+      lc.includes('Leaving queue for match group MvM MannUp') ||
+      lc.includes('Server shutting down') ||
       lc.includes('disconnecting')) {
       gamestate.details = "Main menu";
       gamestate.state = 'Idle';

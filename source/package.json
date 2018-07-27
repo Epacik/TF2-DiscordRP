@@ -11,9 +11,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com:Epat9/node-TF2-DiscordRP.git"
+    "url": "git+ssh://git@github.com:Epat9/TF2-DiscordRP.git"
   },
-  "homepage": "https://github.com/Epat9/node-TF2-DiscordRP",
+  "homepage": "https://github.com/Epat9/TF2-DiscordRP",
   "keywords": [
     "Electron",
     "Discord",
@@ -23,7 +23,7 @@
   "license": "MIT",
   "dependencies": {
     "discord-rpc": "./RPC",
-    "discord.js": "./discordjs",
+    "discord.js": "./discord.js",
     "electron-settings": "^3.2.0",
     "jquery": "^3.3.1",
     "jsdom": "^11.10.0",
@@ -49,6 +49,6 @@
     }
   },
   "bugs": {
-    "url": "https://github.com/Epat9/node-TF2-DiscordRP/issues"
+    "url": "https://github.com/Epat9/TF2-DiscordRP/issues"
   }
 }
