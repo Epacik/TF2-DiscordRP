@@ -8,7 +8,7 @@
 
 > You can run  TF2 Rich Presence before launching Team Fortress 2, in that case TF2 will be launched automatically or run TF2 first, but then you have to add a launch option `-condebug` before launching game.
 
----
+
 
 #### How to add launch options on steam
 
