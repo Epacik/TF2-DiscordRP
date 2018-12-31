@@ -23,7 +23,7 @@ let tray;
  * ID of discord app
  * default: '429697664658178059'
  */
-const clientId = '429697664658178059'
+const clientId = '429697664658178059';
 
 let mainLoop;
 
@@ -288,7 +288,12 @@ function getTf2Folder() {
 
   for (i = 0; i < tf2DRC.tf2Exec.length; i++) {
     if (tf2DRC.tf2Exec[i].includes('Team Fortress 2')) {
-      let index = tf2DRC.tf2Exec[i].lastIndexOf('\\');
+      let index;
+      if (tf2DRC.tf2Exec[i].includes("\\")) {
+        index = tf2DRC.tf2Exec[i].lastIndexOf('\\');
+      } else {
+        index = tf2DRC.tf2Exec[i].lastIndexOf('/');
+      }
       tf2DRC.tf2Folder = tf2DRC.tf2Exec[i].slice(0, index + 1);
     }
   }

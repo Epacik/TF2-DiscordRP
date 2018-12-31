@@ -23,6 +23,7 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "electron": ">=2.0.8",
     "discord-rpc": "./RPC",
     "discord.js": "file:discord.js",
     "electron-settings": "^3.2.0",
@@ -32,7 +33,7 @@
     "request": "~2.87.0"
   },
   "devDependencies": {
-    "electron": "2.0.2",
+    "electron": ">=2.0.8",
     "electron-builder": "^20.38.4",
     "node-sass": "^4.9.0"
   },

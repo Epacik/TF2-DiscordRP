@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="09d0374b-3cb5-41a1-ac8a-c7a800494d15" name="Default Changelist" comment="" />
+    <list default="true" id="09d0374b-3cb5-41a1-ac8a-c7a800494d15" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/source/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/source/package.json" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/source/node_modules/" />
     <ignored path="$PROJECT_DIR$/source/RPC/discord.js/node_modules/" />
     <ignored path="$PROJECT_DIR$/source/discord.js/node_modules/" />
@@ -16,38 +20,53 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/source/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1115">
-              <caret line="198" column="16" selection-start-line="198" selection-start-column="16" selection-end-line="198" selection-end-column="16" />
+            <state relative-caret-position="537">
+              <caret line="294" column="48" selection-start-line="294" selection-start-column="48" selection-end-line="294" selection-end-column="48" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/source/src/js/menu-handler.js">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/source/src/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
+            <state relative-caret-position="73">
               <caret line="6" column="26" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/source/src/renderer.js">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/source/src/js/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
+            <state relative-caret-position="714">
+              <caret line="42" column="392" lean-forward="true" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="392" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/source/src/js/button.js">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/source/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="27" column="34" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
+            <state relative-caret-position="272">
+              <caret line="25" column="25" selection-start-line="25" selection-start-column="25" selection-end-line="25" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -70,6 +89,10 @@
       <find>exe</find>
       <find>chStatus</find>
       <find>tit</find>
+      <find>5000</find>
+      <find>detect</find>
+      <find>set</find>
+      <find>ps</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -79,10 +102,10 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/source/src/js/index.js" />
-        <option value="$PROJECT_DIR$/source/main.js" />
         <option value="$PROJECT_DIR$/source/src/index.html" />
-        <option value="$PROJECT_DIR$/source/package.json" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/source/package.json" />
+        <option value="$PROJECT_DIR$/source/main.js" />
       </list>
     </option>
   </component>
@@ -118,6 +141,20 @@
               <item name="TF2-DiscordRP" type="462c0819:PsiDirectoryNode" />
               <item name="source" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TF2-DiscordRP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TF2-DiscordRP" type="462c0819:PsiDirectoryNode" />
+              <item name="source" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TF2-DiscordRP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TF2-DiscordRP" type="462c0819:PsiDirectoryNode" />
+              <item name="source" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="sass" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -163,12 +200,12 @@
       <workItem from="1546133628756" duration="3070000" />
       <workItem from="1546213068167" duration="2833000" />
       <workItem from="1546220905055" duration="481000" />
-      <workItem from="1546229422541" duration="2035000" />
+      <workItem from="1546229422541" duration="3616000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8419000" />
+    <option name="totallyTimeSpent" value="10000000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -206,27 +243,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/source/src/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="26" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1115">
-          <caret line="198" column="16" selection-start-line="198" selection-start-column="16" selection-end-line="198" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/src/js/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -236,8 +252,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/source/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" column="34" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
+        <state relative-caret-position="272">
+          <caret line="25" column="25" selection-start-line="25" selection-start-column="25" selection-end-line="25" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/src/js/menu-handler.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/src/js/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="42" column="392" lean-forward="true" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="392" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/src/js/button.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/src/renderer.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/src/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="73">
+          <caret line="6" column="26" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="537">
+          <caret line="294" column="48" selection-start-line="294" selection-start-column="48" selection-end-line="294" selection-end-column="48" />
         </state>
       </provider>
     </entry>
