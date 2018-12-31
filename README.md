@@ -1,4 +1,4 @@
----
+------
 
 # TF2 Rich Presence
 
@@ -17,7 +17,7 @@
 
 - Type in desired options and click `OK`![](https://raw.githubusercontent.com/Epacik/TF2-DiscordRP/master/img/sc3.jpg)
 
----
+------
 
 ### TF2 Rich Presence is based on [MakeYourRPC](https://github.com/SrSheep/MakeYourRPC) and [Electron Framework](https://electronjs.org/).
 
