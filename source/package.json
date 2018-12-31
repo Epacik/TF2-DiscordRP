@@ -47,7 +47,8 @@
       "target": [
         "AppImage",
         "snap"
-      ]
+      ],
+      "icon": "./build/icon.png"
     },
     "nsis": {
       "allowToChangeInstallationDirectory": true,
