@@ -20,10 +20,9 @@ function chStatus(pr, status) {
     } else {
       document.getElementById('tf2-status').classList.remove('status-on');
       document.getElementById('tf2-status').classList.add('status-off');
-      if (confirm('Team Fortress 2 is not working right now.\nWould you like to launch it?')) {
-        launchTF2();
-        setTimeout(function() {detectAgain()}, 5000);
-      }
+      launchTF2();
+      setTimeout(function() {detectAgain()}, 5000);
+
     }
     document.querySelector('#tf2-status span').innerHTML = s;
   } else if (pr === 'dis') {

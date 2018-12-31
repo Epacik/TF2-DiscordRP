@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "Discord RPC for Team Fortress 2",
   "main": "main.js",
+  "author": "Damian Kuśmierz",
   "scripts": {
     "start": "electron .",
     "pack": "build --dir",
+    "build": "electron-builder --x64 --ia32",
     "dist": "build",
     "sass": "node-sass -o src/css/ src/sass/"
   },
@@ -19,11 +21,10 @@
     "Discord",
     "RPC"
   ],
-  "author": "Damian Kuśmierz",
   "license": "MIT",
   "dependencies": {
     "discord-rpc": "./RPC",
-    "discord.js": "./discord.js",
+    "discord.js": "file:discord.js",
     "electron-settings": "^3.2.0",
     "jquery": "^3.3.1",
     "jsdom": "^11.10.0",
@@ -32,20 +33,26 @@
   },
   "devDependencies": {
     "electron": "2.0.2",
-    "electron-builder": "^20.13.3",
+    "electron-builder": "^20.38.4",
     "node-sass": "^4.9.0"
   },
   "build": {
-    "appId": "com.tf2RPC",
+    "appId": "com.epat.tf2RPC",
+    "productName": "TF2 Rich Presence",
     "win": {
       "target": "nsis",
-      "icon": "/src/img/512x512.png"
+      "icon": "./build/icon.ico"
     },
     "linux": {
       "target": [
         "AppImage",
         "snap"
       ]
+    },
+    "nsis": {
+      "allowToChangeInstallationDirectory": true,
+      "oneClick": false,
+      "unicode": true
     }
   },
   "bugs": {

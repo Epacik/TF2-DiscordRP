@@ -29,9 +29,9 @@ let mainLoop;
 
 /**
  * How often RPC would be updated in `ms`
- * default: 500
+ * default: 5000
  */
-let updateRate = 500;
+let updateRate = 5000;
 
 let dCounter = 0;
 
@@ -196,9 +196,7 @@ function createWindow() {
     minWidth: 400,
     height: 420,
     minHeight: 300,
-    icon: __dirname + '/src/img/256x256.png',
     frame: true,
-    title: 'MakeYourRPC',
     resizable: false
   });
 
@@ -247,14 +245,10 @@ function detectDiscord() {
     if (err) {
       throw new Error(err);
     }
-    res.forEach( (pr) => {
-      if (pr) {
+    if (res.length >= 1) {
         tf2DRC.isOn.dis = true;
-        }
-    });
-    if (tf2DRC.isOn.dis) {
-      console.log('discord is on');
-      sendAsync('{"p":"dis","st":true}');
+        console.log('discord is on');
+        sendAsync('{"p":"dis","st":true}');
     }
   }
 );
@@ -284,6 +278,7 @@ function detectTF2() {
     if (tf2DRC.isOn.tf2) {
       console.log('tf2 is on');
       getTf2Folder();
+
     }
   }
 );
@@ -452,7 +447,7 @@ let getJSON = function(url, callback) {
 };
 
 function getGM() {
- let url = 'https://gist.githubusercontent.com/Epat9/7c6abcef909d9d293d33c599898ff7eb/raw/';
+ let url = 'https://gist.githubusercontent.com/Epacik/7c6abcef909d9d293d33c599898ff7eb/raw/';
  getJSON(url, (er, data) => {
    if (er !== null) {
      console.log('Invalid URL to gamemodes!');
@@ -465,7 +460,7 @@ function getGM() {
 }
 
 function getMaps() {
- let url = 'https://gist.githubusercontent.com/Epat9/e4edd035b771822ca9f9c21c7021902d/raw/';
+ let url = 'https://gist.githubusercontent.com/Epacik/e4edd035b771822ca9f9c21c7021902d/raw/';
  getJSON(url, (er, data) => {
    if (er !== null) {
      console.log('Invalid URL to maps!');
