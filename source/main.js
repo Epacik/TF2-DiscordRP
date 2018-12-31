@@ -254,7 +254,11 @@ function detectTF2() {
       if (pr) {
         tf2DRC.isOn.tf2 = true;
         if (pr.arguments.includes('tf')) {
-          tf2DRC.tf2Exec.push(pr.command);
+          if (process.platform == "linux"){
+            tf2DRC.tf2Exec.push(pr.command + " " + pr.arguments[0] + " " + pr.arguments[1]);
+          } else {
+            tf2DRC.tf2Exec.push(pr.command);
+          }
           if (!pr.arguments.includes('-condebug')) {
             sendAsync('{"p":"tf2-noCondebug","st":true}');
           }
