@@ -19,7 +19,8 @@
   "keywords": [
     "Electron",
     "Discord",
-    "RPC"
+    "RPC",
+    "Team Fortress 2"
   ],
   "license": "MIT",
   "dependencies": {
