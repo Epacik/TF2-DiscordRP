@@ -264,6 +264,7 @@ function detectTF2() {
       throw new Error(err);
     }
     res.forEach( (pr) => {
+      console.log("pr: " + pr);
       if (pr) {
         tf2DRC.isOn.tf2 = true;
         if (pr.arguments.includes('tf')) {
