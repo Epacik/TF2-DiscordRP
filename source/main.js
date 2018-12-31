@@ -237,7 +237,7 @@ function detectDiscord() {
 function detectTF2() {
   let hl2 = 'hl2';
   if (process.platform == "linux") {
-    hl2 = "hl2_linux"
+    hl2 = "Team"
   }
 
   ps.lookup({
