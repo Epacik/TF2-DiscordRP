@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="09d0374b-3cb5-41a1-ac8a-c7a800494d15" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/.gitmodules" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/source/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/source/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/src/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/js/index.js" afterDir="false" />
-    </list>
+    <list default="true" id="09d0374b-3cb5-41a1-ac8a-c7a800494d15" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/source/node_modules/" />
     <ignored path="$PROJECT_DIR$/source/RPC/discord.js/node_modules/" />
     <ignored path="$PROJECT_DIR$/source/discord.js/node_modules/" />
@@ -51,7 +43,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/source/package.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="459">
@@ -60,11 +52,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="8" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
+            <state relative-caret-position="34">
+              <caret line="2" selection-start-line="2" selection-end-line="2" />
             </state>
           </provider>
         </entry>
@@ -171,12 +163,12 @@
       <workItem from="1546133628756" duration="3070000" />
       <workItem from="1546213068167" duration="2833000" />
       <workItem from="1546220905055" duration="481000" />
-      <workItem from="1546229422541" duration="836000" />
+      <workItem from="1546229422541" duration="2035000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7220000" />
+    <option name="totallyTimeSpent" value="8419000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -235,17 +227,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/source/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
           <caret line="27" column="34" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="8" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
         </state>
       </provider>
     </entry>
