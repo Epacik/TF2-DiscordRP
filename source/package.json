@@ -23,7 +23,6 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "electron": ">=2.0.8",
     "discord-rpc": "./RPC",
     "discord.js": "file:discord.js",
     "electron-settings": "^3.2.0",

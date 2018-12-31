@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="09d0374b-3cb5-41a1-ac8a-c7a800494d15" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/source/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/source/main.js" afterDir="false" />
-    </list>
+    <list default="true" id="09d0374b-3cb5-41a1-ac8a-c7a800494d15" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/source/node_modules/" />
     <ignored path="$PROJECT_DIR$/source/RPC/discord.js/node_modules/" />
     <ignored path="$PROJECT_DIR$/source/discord.js/node_modules/" />
@@ -198,12 +196,12 @@
       <workItem from="1546133628756" duration="3070000" />
       <workItem from="1546213068167" duration="2833000" />
       <workItem from="1546220905055" duration="481000" />
-      <workItem from="1546229422541" duration="8921000" />
+      <workItem from="1546229422541" duration="9520000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15305000" />
+    <option name="totallyTimeSpent" value="15904000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -223,7 +221,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3033586" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3033586" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
