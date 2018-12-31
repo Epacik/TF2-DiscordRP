@@ -287,6 +287,7 @@ function detectTF2() {
 function getTf2Folder() {
 
   for (i = 0; i < tf2DRC.tf2Exec.length; i++) {
+    console.log(tf2DRC.tf2Exec[i]);
     if (tf2DRC.tf2Exec[i].includes('Team Fortress 2')) {
       let index;
       if (tf2DRC.tf2Exec[i].includes("\\")) {
