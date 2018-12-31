@@ -214,27 +214,7 @@ function createWindow() {
 }
 
 function createTray() {
-  tray = new Tray(path.join(__dirname, '/src/img/256x256.png'));
-  const trayMenu = Menu.buildFromTemplate([
-    {
-      label: 'MakeYourRPC',
-      enabled: false
-    },
-    {
-      label: 'Abrir',
-      click: () => mainWindow.show()
-    },
-    {
-      label: 'Fechar',
-      click: () => app.quit()
-    },
-    { type: 'separator' }
-  ]);
 
-  tray.on('double-click', () => mainWindow.show());
-
-  tray.setToolTip('MakeYourRPC');
-  tray.setContextMenu(trayMenu);
 }
 
 function detectDiscord() {
@@ -263,8 +243,9 @@ function detectTF2() {
     if (err) {
       throw new Error(err);
     }
+    console.log("res: " + JSON.stringify(res, null, " "));
     res.forEach( (pr) => {
-      console.log("pr: " + pr);
+
       if (pr) {
         tf2DRC.isOn.tf2 = true;
         if (pr.arguments.includes('tf')) {
