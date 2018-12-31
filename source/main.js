@@ -235,8 +235,13 @@ function detectDiscord() {
 }
 
 function detectTF2() {
+  let hl2 = 'hl2';
+  if (process.platform == "linux") {
+    hm2 = "hl2-linux"
+  }
+
   ps.lookup({
-    comand: 'hl2',
+    comand: hl2,
     arguments: 'tf',
   },
   function (err, res) {
